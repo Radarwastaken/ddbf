@@ -2,6 +2,11 @@
 
 Let's begin making a bot
 
+First let's install stuff we need,
+
+- Node.js & npm (https://nodejs.org)
+- ddbf & eris (run `npm i --save ddbf eris` in bot directory.)
+
 All this framework extends from eris is the Client class and to keep it oriented, it only adds a manager property which is how things are handled i the framework.
 
 Basically you add extensions to manager, which can be done by either adding them through teh constructor (Manager Options) (by providing it via the third argument in client's constructor) OR by adding them manually.

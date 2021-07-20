@@ -1,6 +1,6 @@
 {
     "name": "ddbf",
-    "version": "0.0.1",
+    "version": "0.0.0-indev",
     "description": "ddbf: Dhruvin's Discord Bot Framework, A framework based on eris.",
     "main": "dist/index.js",
     "scripts": {

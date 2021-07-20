@@ -7,4 +7,6 @@ tsconfig.json
 node_modules
 dump
 src
+tutorial
+.git
 .vscode

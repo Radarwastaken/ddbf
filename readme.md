@@ -8,6 +8,10 @@ A discord bot framework for the eris library.
 
 See in [tutorial folder](./tutorial)
 
+## Support
+
+You can ask in [My Server](https://dsc.gg/dhruvin)'s #dev-chat channel.
+
 ## Docs
 
 Soon
