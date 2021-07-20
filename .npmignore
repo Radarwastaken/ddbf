@@ -1,0 +1,10 @@
+.prettierrc
+.eslintrc.json
+.gitignore
+.npmrc
+.npmignore
+tsconfig.json
+node_modules
+dump
+src
+.vscode
