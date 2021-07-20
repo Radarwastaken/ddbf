@@ -136,12 +136,12 @@ module.exports = {
 After you start the client send a command to the bot by sending a message like this
 
 !ping
->>> pong
+> pong
 
 !add
->>> You need to provide numbers for this command
+> You need to provide numbers for this command
 
 !add 1 2 3
->>> The sum is `6`
+> The sum is `6`
 
 And now, you have a fully functioning bot! GG!
