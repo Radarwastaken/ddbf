@@ -14,19 +14,19 @@ export class CommandHandler {
     public static prefixes: Set<string> = new Set();
 
     public static async loadFrom(
-        manager: Manager,
         dir = __dirname,
+        manager: Manager,
         filter: (file: string) => unknown = loadFilter
     ): Promise<void> {
         const files = await readdir(dir);
         files.filter(filter).forEach(async (file) => {
-            await this.load(manager, file);
+            await this.load(file, manager);
         });
     }
 
     public static async load(
-        manager: Manager,
-        cmd: string | Command
+        cmd: string | Command,
+        manager: Manager
     ): Promise<void> {
         if (typeof cmd === "string") cmd = requireProper<Command>(cmd);
         if (cmd.init) await cmd.init(manager);
@@ -34,8 +34,8 @@ export class CommandHandler {
     }
 
     public static async unload(
-        manager: Manager,
-        cmd: string | Command
+        cmd: string | Command,
+        manager: Manager
     ): Promise<boolean> {
         if (typeof cmd === "string") cmd = requireProper<Command>(cmd);
         if (cmd.shutdown) await cmd.shutdown(manager);
@@ -44,18 +44,18 @@ export class CommandHandler {
     }
 
     public static async unloadFrom(
-        manager: Manager,
         dir = __dirname,
+        manager: Manager,
         filter: (file: string) => unknown = loadFilter
     ): Promise<void> {
         const files = await readdir(dir);
         files.filter(filter).forEach(async (file) => {
-            await this.unload(manager, file);
+            await this.unload(file, manager);
         });
     }
 
-    public static async init(): Promise<void> {
-        await ListenerHandler.load(CommandHandlerListener);
+    public static async init(manager: Manager): Promise<void> {
+        await ListenerHandler.load(CommandHandlerListener, manager);
     }
 
     public static parseCommand(str: string): [Command, string[], Args] | null {
@@ -82,5 +82,4 @@ export class CommandHandler {
         const args = new Args(pout);
         return [command, Array.from(args), args];
     }
-
 }

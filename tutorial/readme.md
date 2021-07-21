@@ -42,7 +42,7 @@ module.exports = {
     event: "ready",
     emitter: "client",
     run(client) {
-        console.timeLog(`${client.user.name} Logged in successfully.`)
+        console.log(`${client.user.name} Logged in successfully.`)
     }
 }
 ```
@@ -52,17 +52,19 @@ module.exports = {
 const { ListenerHandler } = require('ddbf') // The ListenerHandler class has static methods so there is no need to create an instance to use it, though you will have to initialize it once by calling ListenerHandler.init
 
 module.exports = {
-    load: ListenerHandler.loadFrom(__dirname) // There is a filter added,by default so that'll load only js files excluding index.js (this file since it is not a listener)
+    load: ListenerHandler.loadFrom(__dirname), // There is a filter added,by default so that'll load only js files excluding index.js (this file since it is not a listener)
     unload: () => {} // atm Listeners cannot be unloaded, i am looking to add that feature soon.
 }
 ```
 
 ```ts
 // index.js
-const { Client } = require('ddbf')
+const { Client, ListenerHandler } = require('ddbf')
 
 const client = new Client("my-bot-token")
 client.manager.loadExtension('./listeners')
+
+ListenerHandler.init(client.manager) // necessary or it won't work.
 
 client.connect.then(console.log).catch(console.error)
 ```
@@ -103,10 +105,13 @@ Now that we have 2 extensions to load (commands & listeners), it might be great 
 
 ```ts
 // index.js
-const { Client, CommandHandler } = require('ddbf')
+const { Client, ListenerHandler, CommandHandler } = require('ddbf')
 
 const client = new Client("my-bot-token", {}, {extensions: ["./commands", "./listeners"]})// Notice an empty object? it's added because managerOptions is third argument so an empty options object was specified, also filepaths work for extensions.
 // client.manager.loadExtension('./listeners') This is no longer needed!
+
+ListenerHandler.init(client.manager).then(console.log("ListenerHandler Initialized")).catch(console.error) // necessary or it won't work.
+CommandHandler.init(client.manager).then(console.log("CommandHandler Initialized")).catch(console.error) // necessary or it won't work.
 
 // Let's also add a prefix for the CommandHandler, It's better to do that before connecting the client.
 CommandHandler.prefixes.add("!")

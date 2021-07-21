@@ -17,7 +17,9 @@ export class Manager extends EventEmitter {
     }
 
     public async init(): Promise<void> {
-        this.options?.extensions?.forEach(this.loadExtension);
+        this.options?.extensions?.forEach(async (ext) => {
+            await this.loadExtension(ext);
+        });
     }
 
     public async loadExtension(extension: string | Extension): Promise<void> {

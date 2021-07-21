@@ -2,3 +2,5 @@ node_modules
 dist
 dump
 .vscode
+
+test
